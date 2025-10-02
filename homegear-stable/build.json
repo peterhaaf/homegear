@@ -1,9 +1,9 @@
 {
     "build_from": {
       "amd64": "homeassistant/amd64-base-ubuntu:18.04",
-      "armhf": "docker.io/library/ddebian:trixie-slim",
-      "aarch64": "docker.io/library/ddebian:buster-slim",
-      "armv7": "docker.io/library/ddebian:trixie-slim"
+      "armhf": "docker.io/library/debian:trixie-slim",
+      "aarch64": "docker.io/library/debian:buster-slim",
+      "armv7": "docker.io/library/debian:trixie-slim"
     },
     "args": {
       "HOMGEAR_VERSION": "stable"
