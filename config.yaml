@@ -1,11 +1,10 @@
 name: Homegear-Stable
 version: 1.0.0.1
-slug: homegear
+slug: homegear_stable
 description: Homegear as a HomeAssistant add-on
 arch:
   - armv7
   - armhf
-  - amd64
   - aarch64
 startup: services
 boot: auto
@@ -13,7 +12,7 @@ webui: http://[HOST]:[PORT:2001]
 ingress: true
 ingress_port: 443
 panel_icon: mdi:thermostat-box
-panel_title: Homegear
+panel_title: HomegearStable
 uart: true
 gpio: true
 privileged:
