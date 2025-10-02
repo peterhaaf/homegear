@@ -1,0 +1,29 @@
+FROM debian:trixie-slim
+RUN apt-get update && apt-get -y install apt-transport-https wget ca-certificates apt-utils gnupg libavahi-client3 libavahi-client-dev locales lsb-release
+RUN \
+    touch /tmp/HOMEGEAR_STATIC_INSTALLATION; \
+    touch /.dockerenv; \
+    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen; \
+    locale-gen; \
+    wget -O /etc/apt/keyrings/homegear.asc https://apt.homegear.eu/Release.key; \
+    echo 'deb [signed-by=/etc/apt/keyrings/homegear.asc] https://apt.homegear.eu/debian/trixie/homegear/stable/ trixie main' > /etc/apt/sources.list.d/homegear.list; \
+    apt-get update && apt-get -y install libhomegear-node homegear homegear-management homegear-webssh homegear-adminui homegear-ui homegear-nodes-core homegear-nodes-extra homegear-homematicbidcos homegear-homematicwired homegear-insteon homegear-max homegear-philipshue homegear-sonos homegear-kodi homegear-beckhoff homegear-knx homegear-enocean homegear-intertechno homegear-mbus homegear-zwave homegear-zigbee homegear-ccu homegear-influxdb; \
+    rm -f /etc/homegear/dh1024.pem; \
+    rm -f /etc/homegear/homegear.crt; \
+    rm -f /etc/homegear/homegear.key; \
+    cp -a /etc/homegear /etc/homegear.config; \
+    cp -a /var/lib/homegear /var/lib/homegear.data; \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+#VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
+
+RUN chmod +x /start.sh
+COPY script/prerun.sh /prerun.sh
+RUN chmod +x /prerun.sh /start.sh
+ENTRYPOINT ["/bin/bash", "-c", "/prerun.sh"]
+
+EXPOSE 80 443 2001 2002 2003 2004
