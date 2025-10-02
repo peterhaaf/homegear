@@ -22,11 +22,11 @@ map:
   - config:rw
   - share:rw
 ports:
-  80: "8080"
-  443: "8443"
+  "80": "8080"
+  "443": "8443"
 ports_description:
-  80: No SSL
-  443: SSL, authentication enabled
+  "80": "No SSL"
+  "443": "SSL, authentication enabled"
 environment: {}
 options: {}
 schema: {}
